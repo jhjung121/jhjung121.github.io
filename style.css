@@ -1,0 +1,241 @@
+:root {
+  --maxw: 1180px;
+
+  --fg: #1a1a1a;
+  --fg-muted: #5c5c5c;
+  --bg: #ffffff;
+  --accent: #1B6B47;      /* green — change to taste */
+  --border: #e5e5e5;
+
+  /* type scale: two display sizes + a 17 / 15 / 13 text tier */
+  --fs-display: 42px;
+  --fs-title: 30px;
+  --fs-body: 17px;
+  --fs-sm: 15px;
+  --fs-xs: 13px;
+
+  --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease;
+}
+a:hover { border-bottom-color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 1px; }
+
+/* ---------- Top banner ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.topbar-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 15px 24px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+.topbar .brand {
+  font-size: var(--fs-body);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+}
+.topbar .brand:hover { border-bottom-color: transparent; }
+.topbar nav {
+  display: flex;
+  gap: 24px;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.03em;
+}
+.topbar nav a { color: var(--fg-muted); }
+.topbar nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+a.ext::after {
+  content: "\2197";        /* ↗ external link */
+  margin-left: 3px;
+  font-size: 0.9em;
+}
+
+@media (max-width: 480px) {
+  .topbar-inner { padding: 12px 20px; }
+  .topbar nav { gap: 16px; }
+}
+
+/* ---------- Layout ---------- */
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 60px 24px 100px;
+}
+
+@media (max-width: 560px) {
+  .wrap { padding: 40px 20px 72px; }
+}
+
+/* ---------- Intro (name + email + lead) ---------- */
+h1 {
+  font-size: var(--fs-display);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+  margin: 0 0 8px;
+}
+
+.email {
+  font-size: var(--fs-sm);
+  margin: 0 0 28px;
+}
+.email a { color: var(--accent); }
+.email a:hover { border-bottom-color: var(--accent); }
+
+.lead { max-width: 760px; }
+.lead p { margin: 0 0 18px; }
+.lead p:last-child { margin-bottom: 0; }
+
+/* ---------- Sections ---------- */
+section {
+  margin-top: 68px;
+  scroll-margin-top: 80px;   /* clears the sticky banner on anchor jumps */
+}
+
+/* big section heading (black) + long green rule underneath */
+.section-title {
+  font-size: var(--fs-title);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+  margin: 0 0 12px;
+}
+.section-rule {
+  border: 0;
+  height: 2px;
+  background: var(--accent);
+  margin: 0 0 34px;
+}
+
+/* sub-section: short label in a left column, content on the right */
+.subsection {
+  display: grid;
+  grid-template-columns: 165px minmax(0, 1fr);
+  gap: 28px;
+}
+/* clear separation between groups: extra space + a faint rule */
+.subsection + .subsection {
+  margin-top: 48px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+
+.sub-title {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+  padding-top: 5px;
+}
+
+@media (max-width: 720px) {
+  .subsection { grid-template-columns: 1fr; gap: 10px; }
+  .subsection + .subsection { margin-top: 40px; padding-top: 32px; }
+}
+
+p { margin: 0 0 18px; }
+p:last-child { margin-bottom: 0; }
+
+/* ---------- Publications / Working Papers ---------- */
+.pub-list { list-style: none; margin: 0; padding: 0; }
+.pub-list > li { padding: 10px 0; }
+.pub-list > li:first-child { padding-top: 2px; }
+
+.pub-title {
+  font-size: var(--fs-body);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 3px;
+  color: var(--fg);
+}
+a.pub-title:hover { color: var(--accent); border-bottom-color: transparent; }
+a.pub-title.ext::after { color: var(--accent); font-weight: 400; }
+.pub-meta { color: var(--fg-muted); font-size: var(--fs-sm); }
+.pub-venue { font-style: italic; }
+
+/* ---------- Teaching: one shared column grid so every row lines up ---------- */
+.ta-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  /* last track hugs the widest "…University, year" string across all rows */
+  grid-template-columns: 84px minmax(0, 1fr) max-content;
+  row-gap: 4px;
+}
+.ta-row {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;   /* share the list's tracks -> aligned left edges */
+  column-gap: 20px;
+  align-items: baseline;
+  padding: 9px 0;
+}
+.ta-row:first-child { padding-top: 2px; }
+.ta-code { font-weight: 400; color: var(--fg-muted); }
+.ta-name { font-weight: 400; color: var(--fg); }
+.ta-level { color: var(--fg-muted); }
+.ta-where {
+  color: var(--fg-muted);
+  font-size: var(--fs-sm);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .ta-list { display: block; }
+  .ta-row {
+    grid-column: auto;
+    grid-template-columns: 76px minmax(0, 1fr);
+    column-gap: 16px;
+    row-gap: 2px;
+  }
+  .ta-where { grid-column: 2; white-space: normal; }
+}
+
+/* ---------- Footer ---------- */
+footer {
+  margin-top: 72px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+  color: var(--fg-muted);
+  font-size: var(--fs-xs);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+}
