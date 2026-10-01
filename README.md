@@ -3,7 +3,7 @@
 Static site. No build step, no dependencies.
 
 ## Files
-- `index.html` — the whole site (intro + Research + Teaching)
+- `index.html` — the whole site (hero + Working Papers + Publications + Teaching)
 - `style.css` — styles
 - `assets/favicon.svg` — tab icon ("JJ"; green is hard-coded, update if `--accent` changes)
 - `assets/Jahui_JUNG_CV.pdf` — CV
@@ -12,37 +12,45 @@ Static site. No build step, no dependencies.
 - Set `og:url` in `index.html` `<head>` to the real GitHub Pages URL (currently a placeholder).
 - Optional: add an `og:image` (~1200×630) for richer link previews.
 
-## Top banner
-Sticky banner: brand name (left) → top of page; `Research` → `#research`;
-`Teaching` → `#teaching`; `CV` → `assets/Jahui_JUNG_CV.pdf` (opens the PDF in a new tab).
+## Design
+Helvetica family throughout — `"Helvetica Neue", Helvetica, Arial, sans-serif`
+(`--font-display` and `--font-serif` both point to this stack; kept as two
+variables so a future heading/body split is a one-line change). OS fonts
+only, no web font to load. Plain white background. Section headings, the
+short accent `.tick` marks, and the full-width `.divider` rules between
+sections all share one colour (`--accent`, muted sage green) — that's the
+only colour accent on the page besides black/grey text and hover states.
 
-## Colour rule
-Body text is black/grey; green (`--accent`) is reserved for links (nav, email,
-in-line author link), section headings, and the rules under them. External links
-(CV, the publication DOI) carry a trailing `↗` via `a.ext::after` instead of colour.
-
-## Type scale (`--fs-*` at the top of `style.css`)
-`42` display (name) / `24` title (section headings, `--fs-title`) / `17` body / `15`
-secondary (meta, nav, footer) / `13` label (`.sub-title`). Name, brand, section
-headings and paper/course titles are regular weight (`400`), not bold.
-
-## Structure (in `style.css`)
-- `h1` — name, regular weight, black
-- `.section-title` + `.section-rule` — regular-weight green heading, thin (1px)
-  green rule under it (same `--accent`)
-- `.subsection` — grid: small upper-case left label (`.sub-title`) + content column;
-  `.subsection + .subsection` gets a faint divider + extra space
-- `.pub-title` — regular weight, black; if it links out add `class="pub-title ext"` for the `↗`
+- Top banner: brand (left) → top of page; `Working Papers` → `#working-papers`;
+  `Publications` → `#publications`; `Teaching` → `#teaching`; `CV` → the PDF,
+  opens in a new tab.
+- Hero: name, a `.tick`, the intro paragraph, then `Email →` / `CV (PDF) →`
+  links (`.hero-links`). No separate contact block in the footer by design.
+- Working Papers and Publications are each their own `<section>`: a bare
+  `.section-title` + `.tick`, then `.pub-list` directly under it — no
+  `.subsection` wrapper, since each only holds one list, and no index number.
+- Teaching still uses `.subsection` for its "Teaching Assistant" label, since
+  more subsections (e.g. a second role) could go in the same section later.
+- `.pub-list` — each entry gets a hairline top divider; `.pub-title` is the
+  paper title (add `class="pub-title ext"` + `target="_blank"` if it links out).
+- Optional abstract toggle per entry: a plain `<details class="abstract">`
+  with `<summary>Abstract</summary>` + `<p>…</p>` — no JS, the `▸` rotates on
+  open via `[open]`. Copy the block from the Sejong paper to add one elsewhere.
 - `.ta-list` is the grid (`code | name | Sungkyunkwan University, years`); each
   `.ta-row` uses `subgrid` so all rows share the tracks and left edges line up.
-  Last track is `max-content` — one line, never past the section rule. Stacks < 640px.
+  Stacks to two columns below 640px.
+
+## Type scale (`--fs-*` at the top of `style.css`)
+`42` display (hero name, tracked caps) / `27` section titles / `17` body /
+`15` secondary (meta, nav, footer) / `13` sub-section labels.
 
 ## Edit
 Content is populated from the CV; update as needed:
-- Intro: name, email line, and the lead paragraph — `index.html` `<header>`
+- Intro: name, lead paragraph, Email/CV links — `index.html` `<header class="hero">`
 - Working Papers / Publications / Teaching entries — `index.html`
-- `--accent` colour, `--maxw` width, `--fs-*` sizes — top of `style.css`
-- Replace `assets/Jahui_JUNG_CV.pdf` when the CV changes (keep the filename, or update the href in the banner too)
+- `--accent` colour, `--bg`, `--maxw` width, `--fs-*` sizes — top of `style.css`
+- Replace `assets/Jahui_JUNG_CV.pdf` when the CV changes (keep the filename,
+  or update both href's in `index.html`)
 
 ## Deploy to GitHub Pages
 1. Create a repo named `<your-username>.github.io`
