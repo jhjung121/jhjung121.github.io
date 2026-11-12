@@ -6,7 +6,7 @@ Static site. No build step, no dependencies.
 - `index.html` — the whole site (hero + Working Papers + Publications + Teaching)
 - `style.css` — styles
 - `assets/favicon.svg` — tab icon ("JJ"; green is hard-coded, update if `--accent` changes)
-- `assets/Jahui_JUNG_CV.pdf` — CV
+- `assets/JaehuiJUNG_CV.pdf` — CV
 
 ## Before publishing
 - Set `og:url` in `index.html` `<head>` to the real GitHub Pages URL (currently a placeholder).
@@ -49,8 +49,8 @@ Content is populated from the CV; update as needed:
 - Intro: name, lead paragraph, Email/CV links — `index.html` `<header class="hero">`
 - Working Papers / Publications / Teaching entries — `index.html`
 - `--accent` colour, `--bg`, `--maxw` width, `--fs-*` sizes — top of `style.css`
-- Replace `assets/Jahui_JUNG_CV.pdf` when the CV changes (keep the filename,
-  or update both href's in `index.html`)
+- Replace `assets/JaehuiJUNG_CV.pdf` when the CV changes (keep the filename,
+  or update the href in `index.html`)
 
 ## Deploy to GitHub Pages
 1. Create a repo named `<your-username>.github.io`
